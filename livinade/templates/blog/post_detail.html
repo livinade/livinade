@@ -1,0 +1,19 @@
+{% extends 'postbase.html' %}
+{% load staticfiles %}
+{% block title %} | {{ title }} {% endblock %}
+{% block style %}{% endblock %}
+
+
+{% block content %}
+<div class="container">
+	<section class="padTop">
+		<h1> This is the Blog Detail Page</h1>
+	</section>
+
+	<section class="col-md-6 col-md-offset-3">
+		<img src="{{ obj.image.url }}" class="img-responsive">
+		<h1>{{ obj.title }} <small>{{obj.timestamp }}</small></h1>
+		<p> {{ obj.content|linebreaks }}</p>
+	</section>
+</div>
+{% endblock %}

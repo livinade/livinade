@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 
 def upload_location(instance, filename):
-	return "%s/%s" %(instance.id, filename)
+	return "posts/%s/%s" %(instance.id, filename)
 
 # Create your models here.
 class Post(models.Model):

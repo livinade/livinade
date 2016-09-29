@@ -1,1 +1,1 @@
-web: gunicorn livinade.wsgi
+web: gunicorn livinade.wsgi --pythonpath=\livinade

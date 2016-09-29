@@ -21,11 +21,13 @@ INSTALLED_APPS += [
 ]
 
 # configure amazon web services
+AWS_S3_SECURE_URLS = True
 AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
 AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
 DEFAULT_FILE_STORAGE = "livinade.utils.MediaRootS3BotoStorage"
 STATICFILES_STORAGE = "livinade.utils.StaticRootS3BotoStorage"
 AWS_STORAGE_BUCKET_NAME = 'livinadecdn-assets'
+
 
 S3_URL = '//%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 MEDIA_URL = '//%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME

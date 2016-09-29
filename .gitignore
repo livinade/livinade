@@ -55,7 +55,7 @@ media_cdn/
 
 static_cdn/
 
-livinade/settings/local.py
+livinade/livinade/settings/local.py
 
 
 

@@ -55,5 +55,7 @@ media_cdn/
 
 static_cdn/
 
+livinde/settings/local.py
+
 
 

@@ -1,0 +1,73 @@
+{% extends 'layouts/base2.html' %}
+{% load staticfiles %}
+{% block title %} | {{ title }} {% endblock %}
+{% block style %}
+	{% if obj.profile.header_image %}
+	<style type="text/css">
+		.profile-header-img {
+	    background-image: url("{{ obj.profile.header_image.url }}");
+		background-size: cover;
+		background-position: center;
+		margin-bottom: 0px;
+		border-top-left-radius: 25px;
+		border-top-right-radius: 25px;
+		height: 200px;
+	}
+	</style>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="profile-header">
+	<div class="profile-header-img"></div>
+	<div class="profile-data">
+		<div class="row">
+			<div class="col-md-4 col-sm-3">
+				<div class="profile-avatar">
+					{% if obj.profile.avatar == null %}
+					  <img src='{% static "img/you.jpg" %}' class="img-responsive prof-avi">
+					{% else %}
+						  <img src="{{ obj.profile.avatar.url }}" class="img-responsive prof-avi">
+					{% endif %}
+					<button class="btn btn-block btn-success" style="margin: 15px 0;">following</button>
+				</div>
+			</div>
+
+			<div class="col-md-8 col-sm-9">
+				<h1 style="text-align: center;">{{ obj.username }}
+					<span><small>
+						{% if request.user.is_authenticated and request.user.id == obj.id %}
+							 | <a href="{% url 'edit' %}">Edit Profile</a>
+						{% endif %}
+					</small></span>
+				</h1>
+
+				<div class="profile-bio">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ullamcorper placerat sem quis varius. Sed nec blandit nisi. Duis nec sagittis nulla. Donec metus.</p>
+				</div>
+				<div class="user-data row">
+					<div class="col-md-3 col-xs-3 followers">
+						<p><b>999K</b></p>
+						<p>Followers</p>
+					</div>
+					<div class="col-md-3 col-xs-3 following">
+						<p><b>999K</b></p>
+						<p>Following</p>
+					</div>
+					<div class="col-md-3 col-xs-3 events">
+						<p><b>999K</b></p>
+						<p>Events</p>
+					</div>
+					<div class="col-md-3 col-xs-3 photos">
+						<p><b>999K</b></p>
+						<p>Photos</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section style="height: 400px; margin: 15px; background: grey;">
+</section>	
+{% endblock %}

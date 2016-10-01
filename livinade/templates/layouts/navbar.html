@@ -1,0 +1,32 @@
+{% load staticfiles %}
+<!-- Static navbar -->
+<nav class="navbar navbar-default navbar-scroll navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Livinade<sup>beta</sup></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        {% if request.user.is_authenticated %}
+          <li><a href="/u/{{ request.user.username }}"> 
+          {{ request.user.username }}</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+          <li><a href="{% url 'login' %}">Log-in</a></li>
+        {% endif %}
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+
+{% if obj.profile.avatar == null %}
+    <img src='{% static "img/you.jpg" %}' class="img-responsive" style="border-radius: 20px;" width="40px" height="40px">
+{% else %}
+    <img src="{{ obj.profile.avatar.url }}" class="img-responsive" style="border-radius: 20px;" width="40px" height="40px">
+{% endif %}

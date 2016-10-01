@@ -1,5 +1,9 @@
 {% extends 'layouts/base2.html' %}
 {% load staticfiles %}
+{% block metadata %}
+<meta property="og:title" content="{{ obj.username }}" />
+<meta property="og:image" content="{{ obj.profile.avatar.url }}" />  
+{% endblock %}
 {% block title %} | {{ title }} {% endblock %}
 {% block style %}
 	{% if obj.profile.header_image %}

@@ -1,5 +1,9 @@
 {% extends 'layouts/base2.html' %}
 {% load static %}
+{% block metadata %}
+<meta property="og:title" content=" Livinade | {{ event.title }}" />
+<meta property="og:image" content="{{ event.flyer.url }}" />  
+{% endblock %}
 {% block title %} | {{ title }} {% endblock %}
 {% block style %}
 <style type="text/css">
@@ -16,21 +20,93 @@
 	width: 100%;
 	height: 100%;
 }	
+section.fill {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    width: 100%;
+	height: 500px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+section.fill img {
+    flex-shrink:0;
+    min-width:110%;
+    min-height:100%;
 
+    -webkit-filter: blur(20px);
+	-moz-filter: blur(20px);
+	-o-filter: blur(20px);
+	-ms-filter: blur(20px);
+	filter: blur(20px);
+}
+div.event-flyer {
+	position: relative;
+	display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    width: 200px;
+	height: 200px;
+	z-index: -1;
+}
+div.event-flyer img {
+    flex-shrink:0;
+    min-width:100%;
+    min-height:100%;
+    height: 200px;
+    width: auto;
+}
 </style>
 {% endblock %}
 
 
 {% block content %}
+	{% if event.flyer %}
+	<section class="fill">
+		<img src="{{ event.flyer.url }}">
+	</section>
+	{% endif %}
 	<section class="col-md-10 col-md-offset-1">
-		<img src="{{ event.flyer.url }}" class="img-responsive">
-		<h1>{{ event.title }} <small>{{event.timestamp }}</small></h1>
-		<h2>{{ event.host.username }}</h2>
 		{% if event.youtube_id %}
-		<div class="videoWrapper">
-			<iframe width="100%" src="https://www.youtube.com/embed/{{event.youtube_id}}" frameborder="0" allowfullscreen></iframe>
+		<div class="event-video">
+			<div class="videoWrapper">
+				<iframe width="100%" src="https://www.youtube.com/embed/{{event.youtube_id}}" frameborder="0" allowfullscreen></iframe>
+			</div>
 		</div>
 		{% endif %}
-		<p> {{ event.details |linebreaks }}</p>
+
+		<div class="event">
+			<div class="event-header">
+				<div class="sometihng">
+					<div class="event-flyer col-xs-4">
+						{% if event.flyer == null %}
+							<img src="{{ event.flyer.url }}" class="img-responsive">
+						{% else %}
+							<img src='{% static "img/Downtown_atlanta_night.jpg" %}'>
+						{% endif %}
+					</div>
+
+
+					<div class="col-xs-8">
+						<h2>{{ event.title }} <small>{{event.timestamp }}</small></h2>
+						<div class="">
+					{% if obj.profile.avatar == null %}
+					  <img src='{% static "img/you.jpg" %}' class="img-responsive" height="40px" width="40px">
+					{% else %}
+						  <img src="{{ obj.profile.avatar.url }}" class="img-responsive" height="40px" width="40px">
+					{% endif %}
+				</div>{{ event.host.username }}
+					</div>
+				</div>
+			</div>
+
+			<div class="event-details col-md-10">
+				<p> {{ event.details |linebreaks }}</p>
+			</div>
+		</div>
 	</section>
 {% endblock %}

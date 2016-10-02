@@ -16,7 +16,14 @@
         {% if request.user.is_authenticated %}
           <li><a href="/u/{{ request.user.username }}"> 
           {{ request.user.username }}</a></li>
-          <li><a href="{% url 'logout' %}">Logout</a></li>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'edit' %}">Settings</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+          </ul>
+        </li>
         {% else %}
           <li><a href="{% url 'login' %}">Log-in</a></li>
         {% endif %}
@@ -24,9 +31,3 @@
     </div><!--/.nav-collapse -->
   </div>
 </nav>
-
-{% if obj.profile.avatar == null %}
-    <img src='{% static "img/you.jpg" %}' class="img-responsive" style="border-radius: 20px;" width="40px" height="40px">
-{% else %}
-    <img src="{{ obj.profile.avatar.url }}" class="img-responsive" style="border-radius: 20px;" width="40px" height="40px">
-{% endif %}

@@ -2,7 +2,9 @@ from __future__ import unicode_literals
 from django.db import models
 from django.db.models.signals import pre_save
 from django.core.urlresolvers import reverse
+from django.conf import settings
 from django.utils.text import slugify
+
 
 # Create your models here.tz
 def flyer_upload_location(instance, filename):
@@ -11,6 +13,7 @@ def flyer_upload_location(instance, filename):
 class Event(models.Model):
 	title = models.CharField(max_length=120)
 	slug = models.SlugField(unique=True)
+	host = models.OneToOneField(settings.AUTH_USER_MODEL, related_name="host", default=1)
 	flyer = models.ImageField(upload_to=flyer_upload_location,
 		blank=True,
 		width_field="width_field",

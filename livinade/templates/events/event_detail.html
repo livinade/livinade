@@ -1,0 +1,35 @@
+{% extends 'layouts/base2.html' %}
+{% load static %}
+{% block title %} | {{ title }} {% endblock %}
+{% block style %}
+<style type="text/css">
+.videoWrapper {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;
+}
+.videoWrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}	
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+	<section class="col-md-10 col-md-offset-1">
+		<img src="{{ event.flyer.url }}" class="img-responsive">
+		<h1>{{ event.title }} <small>{{event.timestamp }}</small></h1>
+		{% if event.youtube_id %}
+		<div class="videoWrapper">
+			<iframe width="100%" src="https://www.youtube.com/embed/{{event.youtube_id}}" frameborder="0" allowfullscreen></iframe>
+		</div>
+		{% endif %}
+		<p> {{ event.details |linebreaks }}</p>
+	</section>
+{% endblock %}

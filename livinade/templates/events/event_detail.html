@@ -43,22 +43,8 @@ section.fill img {
 	-ms-filter: blur(20px);
 	filter: blur(20px);
 }
-div.event-flyer {
-	position: relative;
-	display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
-    width: 200px;
-	height: 200px;
-	z-index: -1;
-}
-div.event-flyer img {
-    flex-shrink:0;
-    min-width:100%;
-    min-height:100%;
-    height: 200px;
-    width: auto;
+.event {
+	background-color: white;
 }
 </style>
 {% endblock %}
@@ -70,42 +56,66 @@ div.event-flyer img {
 		<img src="{{ event.flyer.url }}">
 	</section>
 	{% endif %}
-	<section class="col-md-10 col-md-offset-1">
+	<section class="event col-md-10 col-md-offset-1">
 		{% if event.youtube_id %}
 		<div class="event-video">
 			<div class="videoWrapper">
 				<iframe width="100%" src="https://www.youtube.com/embed/{{event.youtube_id}}" frameborder="0" allowfullscreen></iframe>
 			</div>
 		</div>
+		{% else %}
+		<div class="videoWrapper">
+			<video width="100%" controls>
+				<source src="http://spelhousealumni.com/video/spelhouse_promo.m4v" type="video/mp4">
+			</video>
+		</div>
 		{% endif %}
 
-		<div class="event">
+		<div>
 			<div class="event-header">
-				<div class="sometihng">
-					<div class="event-flyer col-xs-4">
-						{% if event.flyer == null %}
+				<div class="row">
+					<div class="event-flyer col-md-7">
+						{% if event.flyer %}
 							<img src="{{ event.flyer.url }}" class="img-responsive">
 						{% else %}
-							<img src='{% static "img/Downtown_atlanta_night.jpg" %}'>
+							<img src='{% static "img/Downtown_atlanta_night.jpg" %}' class="img-responsive">
 						{% endif %}
 					</div>
-
-
-					<div class="col-xs-8">
-						<h2>{{ event.title }} <small>{{event.timestamp }}</small></h2>
-						<div class="">
-					{% if obj.profile.avatar == null %}
-					  <img src='{% static "img/you.jpg" %}' class="img-responsive" height="40px" width="40px">
-					{% else %}
-						  <img src="{{ obj.profile.avatar.url }}" class="img-responsive" height="40px" width="40px">
-					{% endif %}
-				</div>{{ event.host.username }}
-					</div>
+					{% include 'events/event_header.html' %}
 				</div>
 			</div>
 
-			<div class="event-details col-md-10">
-				<p> {{ event.details |linebreaks }}</p>
+			<div class="row">
+				<div class="event-details col-md-7">
+					<table>
+						<tbody>
+							<tr>
+								<th>tix number 1</th>
+								<td>15.00</td>
+							</tr>
+							<tr>
+								<th>tix number 2</th>
+								<td>15.00</td>
+							</tr>
+							<tr>
+								<th>tix number 3</th>
+								<td>15.00</td>
+							</tr>
+						</tbody>
+					</table>
+					<p> {{ event.details |linebreaks }}</p>
+				</div>
+				<div class="event-info-indetail col-md-5">
+					<div class="col-xs-4">
+						999K<br><hr>Interested
+					</div>
+					<div class="col-xs-4">
+						999K<br><hr>Going
+					</div>
+					<div class="col-xs-4">
+						999K<br><hr>Invited
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>

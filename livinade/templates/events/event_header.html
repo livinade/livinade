@@ -1,0 +1,26 @@
+{% load static %}
+<div class="col-md-5">
+	<div class="event-info">
+		<div class="title">{{ event.title }}</div>
+		<div class="event-minorinfo">
+			<div id="event-info-table" style="width:100%">
+				<div class="tbl-row">
+					<div class="col-xs-1"><i class="fa fa-calendar" aria-hidden="divue"></i></div>
+					<div class="col-xs-11">October 28th 2016</div>
+				</div>
+				<div class="tbl-row">
+					<div class="col-xs-1"><i class="fa fa-map-marker" aria-hidden="divue"></i></div>
+					<div class="col-xs-11">
+						830 Westview Drive, Atlanta, GA 30314
+					</div>
+				</div>
+				<div class="tbl-row">
+					<div class="col-xs-1"><i class="fa fa-users" aria-hidden="true"></i></div>
+					<div class="col-xs-11">
+						<a href="/u/{{ event.host.username }}">{{ event.host.username }}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

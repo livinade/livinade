@@ -1,0 +1,15 @@
+
+{% extends "layouts/base2.html" %}
+
+
+{% block content %}
+<div class="col-sm-6 col-sm-offset-3">
+	<h1>Create Event/h1>
+
+	<form method="POST" enctype="multipart/form-data" action="">{% csrf_token %}
+		{{ event_form.as_p }}
+		<input type="submit" class="btn btn-default" value="Create Event">
+	</form>
+
+</div>
+{% endblock content %}

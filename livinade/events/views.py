@@ -63,7 +63,7 @@ def event_update(request, slug=None):
 	context = {
 		"title": instance.title,
 		"instance": instance,
-		"form": form,
+		"event_form": form,
 	}
 	return render(request, "event_form.html", context)
 

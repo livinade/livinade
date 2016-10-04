@@ -7,6 +7,18 @@ from .models import Event
 
 # Create your views here.
 
+def event_create(request):
+	form = EventForm(request.POST or None, request.FILES or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		messages.success(request, "Successfully Created")
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"event_form": form,
+	}
+	return render(request, "events/event_form.html",context)
+
 def event_list(request):
 	queryset_list = Event.objects.all()
 	paginator = Paginator(queryset_list, 25)
@@ -36,20 +48,6 @@ def event_detail(request, slug=None):
 
 	return render(request,'events/event_detail.html', context)
 
-def event_create(request):
-	form = EventForm(request.POST or None, request.FILES or None)
-	if form.is_valid():
-		instance = form.save(commit=False)
-		instance.save()
-		messages.success(request, "Successfully Created")
-		return HttpResponseRedirect(instance.get_absolute_url())
-
-	context = {
-		"event_form": form,
-	}
-
-	return render(request, "event_form.html", context)
-
 def event_update(request, slug=None):
 	instance = get_object_or_404(Event, slug=slug)
 
@@ -65,7 +63,7 @@ def event_update(request, slug=None):
 		"instance": instance,
 		"event_form": form,
 	}
-	return render(request, "event_form.html", context)
+	return render(request, "events/event_form.html", context)
 
 def event_delete(request, slug=None):
 	instance = get_object_or_404(Event, slug=slug)

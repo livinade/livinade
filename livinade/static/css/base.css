@@ -6,6 +6,10 @@ html {
 body {
 	font-family: 'Josefin Sans', sans-serif;
 }
+body.host {
+	background: #171e2c;
+	color: white;
+}
 .navbar-default {
 	background-color: #f8f8f8;
 	border-color: #00ACE6 !important;

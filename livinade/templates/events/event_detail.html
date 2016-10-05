@@ -1,8 +1,10 @@
 {% extends 'layouts/base2.html' %}
 {% load static %}
 {% block metadata %}
-<meta property="og:title" content=" Livinade | {{ event.title }}" />
 	{% if event.youtube_id %}
+		<meta property="og:url" content="https://www.youtube.com/watch?v={{ event.youtube_id }}">
+		<meta property="og:title" content=" Livinade | {{ event.title }}" />
+    	<meta property="og:image" content="https://i.ytimg.com/vi/{{ event.youtube_id }}/maxresdefault.jpg">
 		<meta property="og:type" content="video">
 		<meta property="og:video:url" content="https://www.youtube.com/embed/{{ event.youtube_id }}">
 		<meta property="og:video:secure_url" content="https://www.youtube.com/embed/{{ event.youtube_id }}">
@@ -15,6 +17,7 @@
         <meta property="og:video:width" content="1280">
         <meta property="og:video:height" content="720">
 	{% else %}
+		<meta property="og:title" content=" Livinade | {{ event.title }}" />
 		<meta property="og:image" content="{{ event.flyer.url }}" />
 	{% endif %} 
 {% endblock %}

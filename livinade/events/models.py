@@ -13,7 +13,7 @@ def flyer_upload_location(instance, filename):
 class Event(models.Model):
 	title = models.CharField(max_length=120)
 	slug = models.SlugField(unique=True)
-	host = models.OneToOneField(settings.AUTH_USER_MODEL, related_name="host", default=1)
+	host = models.ForeignKey(settings.AUTH_USER_MODEL)
 	flyer = models.ImageField(upload_to=flyer_upload_location,
 		blank=True,
 		width_field="width_field",

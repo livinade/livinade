@@ -9,8 +9,8 @@ from .views import (
 
 urlpatterns = [
     url(r'^events/', event_list, name="list"),
-    url(r'^host/event/create/$', event_create, name='create'),
+    url(r'^event/create/$', event_create, name='create'),
     url(r'^e/(?P<slug>[\w-]+)/$', event_detail, name='detail'),
-    url(r'^host/event/(?P<slug>[\w-]+)/edit/$', event_update, name='update'),
+    url(r'^e/(?P<slug>[\w-]+)/edit/$', event_update, name='update'),
     url(r'^e/(?P<slug>[\w-]+)/delete/$', event_delete),
 ]

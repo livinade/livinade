@@ -1,16 +1,20 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from .forms import EventForm
 from .models import Event
+from django.contrib import messages
+import utils
 
 
 # Create your views here.
-
+@login_required
 def event_create(request):
 	form = EventForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
 		instance = form.save(commit=False)
+		instance.host = request.user
 		instance.save()
 		messages.success(request, "Successfully Created")
 		return HttpResponseRedirect(instance.get_absolute_url())
@@ -47,9 +51,11 @@ def event_detail(request, slug=None):
 	}
 
 	return render(request,'events/event_detail.html', context)
-
+@login_required
 def event_update(request, slug=None):
 	instance = get_object_or_404(Event, slug=slug)
+	if request.user != instance.host:
+		raise Http404
 
 	form = EventForm(request.POST or None, request.FILES or None, instance=instance)
 	if form.is_valid():
@@ -65,8 +71,12 @@ def event_update(request, slug=None):
 	}
 	return render(request, "events/event_form.html", context)
 
+@login_required
 def event_delete(request, slug=None):
 	instance = get_object_or_404(Event, slug=slug)
+	if request.user != instance.host:
+		raise Http404
+		
 	instance.delete()
 	messages.success(request,"Successfully Deleted")
-	return redirect("event:list")
+	return redirect("events:list")

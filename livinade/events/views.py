@@ -5,7 +5,6 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from .forms import EventForm
 from .models import Event
 from django.contrib import messages
-import utils
 
 
 # Create your views here.
@@ -76,7 +75,7 @@ def event_delete(request, slug=None):
 	instance = get_object_or_404(Event, slug=slug)
 	if request.user != instance.host:
 		raise Http404
-		
+
 	instance.delete()
 	messages.success(request,"Successfully Deleted")
 	return redirect("events:list")

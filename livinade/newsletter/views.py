@@ -50,7 +50,7 @@ def send_to_signee(instance):
 	The Livinade Team
 	""".format(instance.first_name)
 	ctx = {"first_name": instance.first_name,}
-	html_message = loader.get_template('HTMLEmailSignee/sendToSignee.html').render(ctx)
+	html_message = loader.get_template('emailmarketing/SignUpThankYou.html').render(ctx)
 	send_mail(
 		subject,
 		contact_message,
